@@ -12,35 +12,24 @@ class User {
         this.studentcode = studentcode;
     }
 
-    public String getUssername() {
-        return ussername;
-    }
-
-    public void setUssername(String ussername) {
-        this.ussername = ussername;
-    }
-
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getStudentcode() {
         return studentcode;
     }
 
-    public void setStudentcode(String studentcode) {
-        this.studentcode = studentcode;
+    @Override
+    public String toString() {
+        return "ussername='" + ussername;
+
     }
+
 }

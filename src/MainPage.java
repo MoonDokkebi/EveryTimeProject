@@ -7,6 +7,7 @@ public class MainPage {
         System.out.println("[[[[ 로그인전 ]]]]");
         System.out.println(" 1. 회원가입");
         System.out.println(" 2. 로그인");
+        System.out.println(" 0. 종료");
     }
     private static void afloginmenu() {
         System.out.println("[[[[ 로그인 후 ]]]]");
@@ -19,29 +20,36 @@ public class MainPage {
     public static void main(String[] args) {
         UserManager userManager = new UserManager();
         BoardManager boardManager = new BoardManager();
-        boolean check = false;
-        while(true) {
+        TimeTableManager manager = new TimeTableManager();
+        boolean check = true;
+        while(check) {
             bfloginmenu();
             int bfloginmenu = in.nextInt();
-
+            if (bfloginmenu == 0) {
+                System.out.println("프로그램 종료");
+                break;
+            }
             System.out.println();
             switch (bfloginmenu) {
                 case 1 -> userManager.register();
                 case 2 ->check = userManager.login();
+
             }
-            if(check){
-                System.out.println("프로그램 종료");
-                break;
-            }
-            
         }
-        while(true) {
+
+        while(!check) {
             afloginmenu();
             int afloginmenu = in.nextInt();
+            if (afloginmenu == 0) {
+                System.out.println("로그아웃? 종료");
+                break;
+            }
             switch (afloginmenu) {
                 case 1 -> boardManager.boardList();
-                case 2 -> boardManager.addBoard();
+                case 2 -> boardManager.addBoard(UserManager.currentUser);
+                case 3 -> boardManager.removeBoard();
             }
         }
+
     }
 }
