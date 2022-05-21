@@ -5,61 +5,91 @@ import java.util.Scanner;
 
 public class BoardManager {
     public static ArrayList<BoardData> boardData;
-    int boardNum = 0;
+    public static int currentBoard;
     Scanner in = new Scanner(System.in);
 
-    public BoardManager(){boardData =new ArrayList<>();}
-    public void boardList() {
-        if(boardData.isEmpty()) {System.out.println("게시판이 없습니다.");}
-        else{
-            System.out.println("게시판 리스트");
-            System.out.println(boardData);
 
-        }
-
+    public BoardManager() {
+        boardData = new ArrayList<>();
     }
 
-    public void addBoard(User boardMaker) {
+    public void boardList() {
+        int boardNum = 0;
+        if (boardData.isEmpty()) {
+            System.out.println("게시판이 없습니다.");
+        } else {
+            System.out.println("게시판 리스트");
+            System.out.println(boardData.toString());
 
-        boardNum++;
+        }
+        System.out.println("이전 : 0");
+        System.out.println("들어갈 게시판번호를 입력하세요");
+
+        boardNum = in.nextInt();
+        if (boardNum == 0) return;
+        for (BoardData boardDatum : boardData) {
+            if (boardNum != boardDatum.getBoardNum()) {System.out.println("해당번호의 계시판이 없습니다.");}
+            else if (boardNum == boardDatum.getBoardNum()) {
+                currentBoard = boardNum;
+                PostManager.goPostMenu(currentBoard);
+            }
+
+        }
+    }
+
+
+    public void addBoard(User boardMaker) {
+        int maxboarnum = 0;
+        for (BoardData boardDatum : boardData) {
+            if (maxboarnum < boardDatum.getBoardNum()) {
+                maxboarnum = boardDatum.getBoardNum();
+            }
+        }
+        maxboarnum++;
+
 
         System.out.println("게시판 이름을 입력하세요 : ");
         String boardTitle = in.next();
         //System.out.println("만든 사람 입력하세요 : ");
         //String boardMakeer = in.next();
         boolean hide;
-        boolean check=false;
+        boolean check;
         do {
             System.out.println("익명 여부를 입력하세요(Y/N) : ");
             String bool = in.next();
             hide = true;
             if (Objects.equals(bool, "Y")) {
                 hide = true;
-                check =false;
-            }
-            else if (Objects.equals(bool, "N")){
+                check = false;
+            } else if (Objects.equals(bool, "N")) {
                 hide = false;
-                check =false;
-            }
-            else{
+                check = false;
+            } else {
                 System.out.println("Y/N을 입력하세요");
-                check =true;
+                check = true;
             }
         } while (check);
 
+        PostManager postManager = new PostManager();
 
-        BoardData BD = new BoardData(boardNum, boardTitle, boardMaker, hide);
+        BoardData BD = new BoardData(maxboarnum, boardTitle, boardMaker, hide,postManager );
         boardData.add(BD);
     }
 
     public void removeBoard() {
-        int pos =0;
+        int boardNum;
+        int pos = 0;
         System.out.println("게시판 삭제");
+        System.out.println(boardData);
         System.out.println("지울 게시판 번호를 입력하세요 : ");
-        int boardNum = in.nextInt();
-        for (int i = 0; i <boardData.size() ; i++) {
-            if (boardData.get(i).getBoardNum()==boardNum) pos = i;
+        System.out.println("이전 : 0");
+        boardNum = in.nextInt();
+        if (boardNum == 0) return;
+        for (int i = 0; i < boardData.size(); i++) {
+            if (boardData.get(i).getBoardNum() == boardNum) pos = i;
         }
         boardData.remove(pos);
     }
+
+
 }

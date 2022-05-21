@@ -31,5 +31,4 @@ class User {
         return "ussername='" + ussername;
 
     }
-
 }

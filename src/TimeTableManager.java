@@ -16,6 +16,7 @@ public class TimeTableManager {
         data = new ArrayList<>();
     }//객체 생성
 
+
     public void timetablemenu() {
         System.out.println("[[[[ 시간표 ]]]]");
         System.out.println(" 1. 강의 계획서 보기");
@@ -26,7 +27,7 @@ public class TimeTableManager {
         System.out.println(" 0. 종료");
     }
 
-    public void Test() {
+    public void showTimeTableMenu() {
         if(loadData() == -1) return; //강의계획서 불러오기
         makeDefaltTable();//기본시간표 모양 만들기
 
@@ -42,6 +43,11 @@ public class TimeTableManager {
             }
         }
     }
+
+    public void showLoadData() {
+        System.out.println(data.toString());
+    }
+
 
 
     public void makeDefaltTable() {
@@ -207,10 +213,7 @@ public class TimeTableManager {
         return 0;
     }
 
-    public void showLoadData() {
 
-        System.out.println(data.toString());
-    }
 
 
     public void showNowTable() {
@@ -221,6 +224,7 @@ public class TimeTableManager {
             System.out.println();
         }
     }
+
 
 
 }
