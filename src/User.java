@@ -26,9 +26,12 @@ class User {
         return studentcode;
     }
 
+
+
+
     @Override
     public String toString() {
-        return "ussername='" + ussername;
+        return   ussername;
 
     }
 }

@@ -36,7 +36,7 @@ public class CommentManager {
         int pos = findLocation(commentNum);
         if(pos!=-1) {
             System.out.println("내용 : ");
-            String post = in.next();
+            String post = in.nextLine();
             System.out.println("익명여부 : ");
             String yn = in.next();
             boolean chabgeName = false;

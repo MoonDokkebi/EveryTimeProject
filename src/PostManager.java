@@ -51,9 +51,9 @@ public class PostManager {
         int pos = findLocation(postNum);
         if(pos!=-1) {
             System.out.println("제목 : ");
-            String posttitle = in.next();
+            String posttitle = in.nextLine();
             System.out.println("내용 : ");
-            String post = in.next();
+            String post = in.nextLine();
             System.out.println("익명여부 : ");
             String yn = in.next();
             boolean chabgeName = false;
@@ -124,11 +124,9 @@ public class PostManager {
 
 
         System.out.println("게시글 제목을 입력하세요 : ");
-        String posstTitle = in.next();
-        //System.out.println("만든 사람 입력하세요 : ");
-        //String boardMakeer = in.next();
+        String postTitle = in.nextLine();
         System.out.println("게시글 내용을 입력하세요");
-        String post = in.next();
+        String post = in.nextLine();
         boolean hide;
         boolean check ;
         do {
@@ -147,7 +145,7 @@ public class PostManager {
             }
         } while (check);
 
-        PostData PD = new PostData(maxpostnum, posstTitle, post, hide, currentBoard);
+        PostData PD = new PostData(maxpostnum, postTitle, post, hide, currentBoard);
         postData.add(PD);
     }
 }

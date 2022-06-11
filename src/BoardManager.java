@@ -17,6 +17,7 @@ public class BoardManager {
         int boardNum = 0;
         if (boardData.isEmpty()) {
             System.out.println("게시판이 없습니다.");
+            return;
         } else {
             System.out.println("게시판 리스트");
             System.out.println(boardData.toString());
@@ -47,9 +48,9 @@ public class BoardManager {
         }
         maxboarnum++;
 
-
+        in.nextLine();//개행초기화
         System.out.println("게시판 이름을 입력하세요 : ");
-        String boardTitle = in.next();
+        String boardTitle = in.nextLine();
         //System.out.println("만든 사람 입력하세요 : ");
         //String boardMakeer = in.next();
         boolean hide;
