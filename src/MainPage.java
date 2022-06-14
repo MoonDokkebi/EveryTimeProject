@@ -14,12 +14,15 @@ public class MainPage {
         System.out.println(" 1. 게시판 목록");
         System.out.println(" 2. 게시판 생성");
         System.out.println(" 3. 게시판 삭제");
+        System.out.println(" 4. 시간표");
         System.out.println(" 0. 종료");
     }
     public static void main(String[] args) {
+
         UserManager userManager = new UserManager();
         BoardManager boardManager = new BoardManager();
         TimeTableManager timeTableManager = new TimeTableManager();
+
         boolean check = true;
         while(check) {
             bfloginmenu();
@@ -42,7 +45,8 @@ public class MainPage {
             if (afloginmenu == 0) {
                 System.out.println("로그아웃? 종료");
                 break;
-            }
+            }else if (afloginmenu == 5) return;
+
             switch (afloginmenu) {
                 case 1 -> boardManager.boardList();
                 case 2 -> boardManager.addBoard(UserManager.currentUser);

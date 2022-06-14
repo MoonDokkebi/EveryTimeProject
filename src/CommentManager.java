@@ -3,12 +3,12 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class CommentManager {
-    public static ArrayList<CommentData>commentData;
+    public static ArrayList<CommentData> commentArrayList;
     static Scanner in = new Scanner(System.in);
     static int commentNum = 0;
 
-    public CommentManager(){commentData =new ArrayList<>();}
-    private static void menu() {
+    public CommentManager(){commentArrayList =new ArrayList<>();}
+    private static void commentmenu() {
         System.out.println("[[[[ 댓글 ]]]]");
         System.out.println(" 1. 댓글 목록");
         System.out.println(" 2. 댓글 생성");
@@ -19,19 +19,19 @@ public class CommentManager {
 
     public static void goCommentMenu(int currentPost) {
         while(true) {
-            menu();
-            int menu = in.nextInt();
-            if (menu == 0) return;
+            commentmenu();
+            int commentmenu = in.nextInt();
+            if (commentmenu == 0) return;
             System.out.println();
-            switch (menu) {
+            switch (commentmenu) {
                 case 1 -> commentList(currentPost);
-                case 2 -> addcomment(currentPost);
+                case 2 -> addcomment(currentPost,UserManager.currentUser);
                 case 3 -> removecomment();
-                case 4 -> upateComment(currentPost);
+                case 4 -> upateComment(currentPost,UserManager.currentUser);
             }
         }
     }
-    private static void upateComment(int currentPost) {
+    private static void upateComment(int currentPost,User commentMaker) {
 
         int pos = findLocation(commentNum);
         if(pos!=-1) {
@@ -44,22 +44,22 @@ public class CommentManager {
             else if (Objects.equals(yn, "N"))chabgeName=false;
 
 
-            commentData.set(pos, new CommentData(pos, post, chabgeName, currentPost));//pos 위치에 새로운 book 객체를 저장하는 메소드
+            commentArrayList.set(pos, new CommentData(pos, post,commentMaker, chabgeName, currentPost));//pos 위치에 새로운 book 객체를 저장하는 메소드
         }
     }
     private static void removecomment() {
         System.out.println("댓글 삭제");
-        System.out.println(commentData);
+        System.out.println(commentArrayList);
         System.out.println("지울 댓글 번호를 입력하세요 : ");
         int commentNum = in.nextInt();
         int pos = findLocation(commentNum);
-        if(pos!=-1) commentData.remove(pos);
+        if(pos!=-1) commentArrayList.remove(pos);
         else System.out.println("해당하는 댓글이 없습니다.");
     }
 
-    private static void addcomment(int currentPost) {
+    private static void addcomment(int currentPost,User commentMaker) {
         int commentNum = 0;
-        for (CommentData commentDatum : commentData) {
+        for (CommentData commentDatum : commentArrayList) {
             if (commentNum < commentDatum.getCommentNum()) {
                 commentNum = commentDatum.getCommentNum();
             }
@@ -90,14 +90,14 @@ public class CommentManager {
             }
         } while (check);
 
-        CommentData CD = new CommentData(commentNum, comment, hide, currentPost);
-        commentData.add(CD);
+        CommentData CD = new CommentData(commentNum, comment, commentMaker, hide, currentPost);
+        commentArrayList.add(CD);
     }
 
 
     private static void commentList(int currentPost) {
         boolean checkpost= false;
-        for (CommentData commentDatum : commentData) {
+        for (CommentData commentDatum : commentArrayList) {
             if (commentDatum.getPostnum() == currentPost) {
                 checkpost = true;
                 break;
@@ -108,11 +108,13 @@ public class CommentManager {
             System.out.println("댓글이 없습니다.");
             return;
         } else{
-            System.out.println("댓글 리스트");
-            for (CommentData commentDatum : commentData) {
-                if (commentDatum.getPostnum() == currentPost) {
-                    System.out.println(commentDatum);
-                }
+            System.out.println("                       <<댓글 리스트>>");
+            System.out.println(" 댓글 번호 |     댓글내용     | 작성자 | 익명여부");
+            System.out.println("----------------------------------------------");
+            for (CommentData co : commentArrayList) {
+                System.out.printf(" %-8d | %-15s | %-5s | %-1s\n",
+                        co.getPostnum() , co.getComment(),
+                        co.getCommetMaker(), co.isChangeName());
             }
         }
 
@@ -122,8 +124,8 @@ public class CommentManager {
 
     private static int findLocation(int currentPost){
         int pos=0;
-        for (int i = 0; i < commentData.size() ; i++)
-            if(commentData.get(i).getCommentNum()==currentPost) pos=i;
+        for (int i = 0; i < commentArrayList.size() ; i++)
+            if(commentArrayList.get(i).getCommentNum()==currentPost) pos=i;
         return pos;
     }
 

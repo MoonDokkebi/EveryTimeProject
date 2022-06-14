@@ -61,17 +61,15 @@ public class TimeTableData {
 
     @Override
     public String toString() {
-        return "TimeTableData{" +
-                "grade='" + grade + '\'' +
-                ", division='" + division + '\'' +
-                ", classnum='" + classnum + '\'' +
-                ", classname='" + classname + '\'' +
-                ", classnum2='" + classnum2 + '\'' +
-                ", credit='" + credit + '\'' +
-                ", professor='" + professor + '\'' +
-                ", classtime='" + classtime + '\'' +
-                ", classtime2='" + classtime2 + '\'' +
-                ", classroom='" + classroom + '\'' +
-                '}'+"\n";
+        return  "학년='" + grade + '\'' +
+                ", 이수구분='" + division + '\'' +
+                ", 과목번호='" + classnum + '\'' +
+                ", 과목명='" + classname + '\'' +
+                ", 과목번호(분반)='" + classnum2 + '\'' +
+                ", 학점='" + credit + '\'' +
+                ", 담당교수='" + professor + '\'' +
+                ", 시간1='" + classtime + '\'' +
+                ", 시간2='" + classtime2 + '\'' +
+                ", 수업장소='" + classroom + '\'' + "\n";
     }
 }

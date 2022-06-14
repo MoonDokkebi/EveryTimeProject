@@ -17,14 +17,22 @@ public class BoardData {
         return boardNum;
     }
 
+    public String getBoardTitle() {
+        return boardTitle;
+    }
+
+    public User getBoardMaker() {
+        return boardMaker;
+    }
+
+    public boolean isChangeName() {
+        return changeName;
+    }
 
     @Override
     public String toString() {
-        return  "게시판 번호=" + boardNum +
-                ", 게시판 제목='" + boardTitle + '\'' +
-                ", 게시판 제작자=" + boardMaker +
-                ", 익명여부=" + changeName +
-                '}' + "\n";
+        return  String.format(" %-7d | %-15s | %5s | %-1s\n",
+                boardNum, boardTitle, boardMaker, changeName);
     }
 
 }
