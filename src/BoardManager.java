@@ -1,6 +1,8 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class BoardManager {
     public static ArrayList<BoardData> boardArraylist;
@@ -13,25 +15,33 @@ public class BoardManager {
         boardArraylist = new ArrayList<>();
     }
 
+    public static BoardManager getInstance(String s) {
+        if(boardManager == null)boardManager = new BoardManager();
+        return boardManager;
+    }
+
     public void boardList() {
-        int boardNum = 0;
+
         if (boardArraylist.isEmpty()) {
             System.out.println("게시판이 없습니다.");
-            return;
         } else {
             System.out.println("          <<게시판>>");
             System.out.println("게시판 번호 |       제목       | 작성자 | 익명여부");
             System.out.println("----------------------------------------------");
             for (BoardData bo : boardArraylist) {
                 System.out.printf(" %-8d | %-15s | %-5s | %-1s\n",
-                        bo.getBoardNum() , bo.getBoardTitle(),
+                        bo.getBoardNum(), bo.getBoardTitle(),
                         bo.getBoardMaker(), bo.isChangeName());
             }
 
         }
-        System.out.println("이전 : 0");
+    }
+    public void goboard() {
+        int boardNum;
         System.out.println("들어갈 게시판번호를 입력하세요");
+        boardList();
 
+        System.out.println("이전 : 0");
         boardNum = in.nextInt();
         if (boardNum == 0) return;
         for (BoardData boardDatum : boardArraylist) {
@@ -46,13 +56,14 @@ public class BoardManager {
 
 
     public void addBoard(User boardMaker) {
-        int maxboarnum = 0;
+        int maxboarnum = 1;
         for (BoardData boardDatum : boardArraylist) {
             if (maxboarnum <= boardDatum.getBoardNum()) {
                 maxboarnum = boardDatum.getBoardNum();
+                maxboarnum++;
             }
         }
-        maxboarnum++;
+
 
 
         in.nextLine();
@@ -77,18 +88,17 @@ public class BoardManager {
                 check = true;
             }
         } while (check);
-
         PostManager postManager = new PostManager();
-
-        BoardData BD = new BoardData(maxboarnum, boardTitle, boardMaker, hide,postManager );
+        BoardData BD = new BoardData(maxboarnum, boardTitle, boardMaker.toString(), hide );
         boardArraylist.add(BD);
     }
+
 
     public void removeBoard() {
         int boardNum;
         int pos = 0;
         System.out.println("게시판 삭제");
-        System.out.println(boardArraylist);
+        boardList();
         System.out.println("지울 게시판 번호를 입력하세요 : ");
         System.out.println("이전 : 0");
         boardNum = in.nextInt();
@@ -98,6 +108,8 @@ public class BoardManager {
         }
         boardArraylist.remove(pos);
     }
+
+
 
 
 }

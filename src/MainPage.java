@@ -20,15 +20,20 @@ public class MainPage {
     public static void main(String[] args) {
 
         UserManager userManager = new UserManager();
-        BoardManager boardManager = new BoardManager();
+        BoardManager boardManager =new BoardManager();
+        new PostManager();
+        new CommentManager();
         TimeTableManager timeTableManager = new TimeTableManager();
 
+
+        FileLoad.readTxt();
         boolean check = true;
         while(check) {
             bfloginmenu();
             int bfloginmenu = in.nextInt();
             if (bfloginmenu == 0) {
-                System.out.println("프로그램 종료");
+                System.out.println("프로그램 종료 및 저장");
+                FileLoad.writeTxt();
                 break;
             }
             System.out.println();
@@ -43,12 +48,12 @@ public class MainPage {
             afloginmenu();
             int afloginmenu = in.nextInt();
             if (afloginmenu == 0) {
-                System.out.println("로그아웃? 종료");
+                System.out.println("로그아웃");
                 break;
             }else if (afloginmenu == 5) return;
 
             switch (afloginmenu) {
-                case 1 -> boardManager.boardList();
+                case 1 -> boardManager.goboard();
                 case 2 -> boardManager.addBoard(UserManager.currentUser);
                 case 3 -> boardManager.removeBoard();
                 case 4 -> timeTableManager.showTimeTableMenu();

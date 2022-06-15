@@ -29,9 +29,9 @@ public class PostManager {
             if (menu == 0) return;
             System.out.println();
             switch (menu) {
-                case 1 -> postList(currentBoard);
+                case 1 -> gopost(currentBoard);
                 case 2 -> addPost(currentBoard,UserManager.currentUser);
-                case 3 -> removePost();
+                case 3 -> removePost(currentBoard);
                 case 4 -> upatePost(currentBoard,UserManager.currentUser);
             }
         }
@@ -43,10 +43,12 @@ public class PostManager {
         return pos;
     }
     private static void upatePost(int currentBoard, User makeuser) {
+        postList(currentBoard);
         System.out.println("수정할 게시글 번호를입력하세요");
         int postNum = in.nextInt();
         int pos = findLocation(postNum);
         if(pos!=-1) {
+            in.nextLine();
             System.out.println("제목 : ");
             String posttitle = in.nextLine();
             System.out.println("내용 : ");
@@ -58,13 +60,13 @@ public class PostManager {
             else if (Objects.equals(yn, "N"))chabgeName=false;
 
 
-            postArrayList.set(pos, new PostData(pos,posttitle, post,makeuser, chabgeName, currentBoard));//pos 위치에 새로운 book 객체를 저장하는 메소드
+            postArrayList.set(pos, new PostData(pos+1,posttitle, post,makeuser.toString(), chabgeName, currentBoard));//pos 위치에 새로운 book 객체를 저장하는 메소드
         }
     }
 
-    private static void removePost() {
+    private static void removePost(int currentBoard) {
         System.out.println("게시글 삭제");
-        System.out.println(postArrayList);
+        postList(currentBoard);
         System.out.println("지울 게시글 번호를 입력하세요 : ");
         int postNum = in.nextInt();
         int pos = findLocation(postNum);
@@ -74,6 +76,7 @@ public class PostManager {
     }
 
     public static void postList(int currentBoard) {
+
         boolean checkboard= false;
         for (PostData postDatum : postArrayList) {
             if (postDatum.getBoardnum() == currentBoard) {
@@ -84,7 +87,6 @@ public class PostManager {
 
         if (!checkboard){
             System.out.println("게시글이 없습니다.");
-            return;
         } else{
             System.out.println("                       <<게시글 리스트>>");
             System.out.println("게시글 번호 |       제목       |       내용       | 작성자 | 익명여부");
@@ -95,8 +97,10 @@ public class PostManager {
                         po.getPost(), po.getPostMakeer(), po.isChangeName());
             }
         }
-
+    }
+    public static void gopost(int currentBoard){
         System.out.println("들어갈 게시글번호를 입력하세요");
+        postList(currentBoard);
         System.out.println("이전 : 0");
         int postNum = in.nextInt();
         if (postNum==0) return;
@@ -144,7 +148,7 @@ public class PostManager {
             }
         } while (check);
         CommentManager commentManager = new CommentManager();
-        PostData PD = new PostData(maxpostnum, postTitle, post,makeuser, hide, currentBoard);
+        PostData PD = new PostData(maxpostnum, postTitle, post,makeuser.toString(), hide, currentBoard);
         postArrayList.add(PD);
     }
 }

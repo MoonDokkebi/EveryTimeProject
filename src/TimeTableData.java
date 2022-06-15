@@ -31,6 +31,21 @@ public class TimeTableData {
     }
 
 
+    public String getGrade() {
+        return grade;
+    }
+
+    public String getDivision() {
+        return division;
+    }
+
+    public String getCredit() {
+        return credit;
+    }
+
+    public String getClassroom() {
+        return classroom;
+    }
 
     public String getClassnum() {
         return classnum;
@@ -59,17 +74,5 @@ public class TimeTableData {
 
 
 
-    @Override
-    public String toString() {
-        return  "학년='" + grade + '\'' +
-                ", 이수구분='" + division + '\'' +
-                ", 과목번호='" + classnum + '\'' +
-                ", 과목명='" + classname + '\'' +
-                ", 과목번호(분반)='" + classnum2 + '\'' +
-                ", 학점='" + credit + '\'' +
-                ", 담당교수='" + professor + '\'' +
-                ", 시간1='" + classtime + '\'' +
-                ", 시간2='" + classtime2 + '\'' +
-                ", 수업장소='" + classroom + '\'' + "\n";
-    }
+
 }

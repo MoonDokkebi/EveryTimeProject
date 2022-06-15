@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class CommentManager {
     public static ArrayList<CommentData> commentArrayList;
     static Scanner in = new Scanner(System.in);
-    static int commentNum = 0;
+
 
     public CommentManager(){commentArrayList =new ArrayList<>();}
     private static void commentmenu() {
@@ -26,30 +26,33 @@ public class CommentManager {
             switch (commentmenu) {
                 case 1 -> commentList(currentPost);
                 case 2 -> addcomment(currentPost,UserManager.currentUser);
-                case 3 -> removecomment();
-                case 4 -> upateComment(currentPost,UserManager.currentUser);
+                case 3 -> removecomment(currentPost);
+                case 4 -> updateComment(currentPost,UserManager.currentUser);
             }
         }
     }
-    private static void upateComment(int currentPost,User commentMaker) {
-
+    private static void updateComment(int currentPost,User commentMaker) {
+        commentList(currentPost);
+        System.out.println("수정할 댓글 번호를입력하세요");
+        int commentNum = in.nextInt();
         int pos = findLocation(commentNum);
         if(pos!=-1) {
+            in.nextLine();
             System.out.println("내용 : ");
             String post = in.nextLine();
             System.out.println("익명여부 : ");
             String yn = in.next();
-            boolean chabgeName = false;
-            if(Objects.equals(yn, "Y"))chabgeName=true;
-            else if (Objects.equals(yn, "N"))chabgeName=false;
+            boolean changeName = false;
+            if(Objects.equals(yn, "Y"))changeName=true;
+            else if (Objects.equals(yn, "N"))changeName=false;
 
 
-            commentArrayList.set(pos, new CommentData(pos, post,commentMaker, chabgeName, currentPost));//pos 위치에 새로운 book 객체를 저장하는 메소드
+            commentArrayList.set(pos, new CommentData(pos, post,commentMaker.toString(), changeName, currentPost));//pos 위치에 새로운 book 객체를 저장하는 메소드
         }
     }
-    private static void removecomment() {
+    private static void removecomment(int currentPost) {
         System.out.println("댓글 삭제");
-        System.out.println(commentArrayList);
+        commentList(currentPost);
         System.out.println("지울 댓글 번호를 입력하세요 : ");
         int commentNum = in.nextInt();
         int pos = findLocation(commentNum);
@@ -90,7 +93,7 @@ public class CommentManager {
             }
         } while (check);
 
-        CommentData CD = new CommentData(commentNum, comment, commentMaker, hide, currentPost);
+        CommentData CD = new CommentData(commentNum, comment, commentMaker.toString(), hide, currentPost);
         commentArrayList.add(CD);
     }
 
@@ -108,7 +111,7 @@ public class CommentManager {
             System.out.println("댓글이 없습니다.");
             return;
         } else{
-            System.out.println("                       <<댓글 리스트>>");
+            System.out.println("              <<댓글 리스트>>");
             System.out.println(" 댓글 번호 |     댓글내용     | 작성자 | 익명여부");
             System.out.println("----------------------------------------------");
             for (CommentData co : commentArrayList) {
@@ -117,8 +120,6 @@ public class CommentManager {
                         co.getCommetMaker(), co.isChangeName());
             }
         }
-
-
     }
 
 

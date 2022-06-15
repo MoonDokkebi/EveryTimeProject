@@ -6,14 +6,14 @@ import java.io.IOException;
 import java.util.*;
 
 public class TimeTableManager {
-    private static ArrayList<TimeTableData> data;
+    private static ArrayList<TimeTableData> timeplandata;
     private final String[] timeTableDataList1 = {"월", "화", "수", "목", "금"};
     String[][] timeTableDataList2 = new String[31][6];
 
     Scanner in = new Scanner(System.in);
 
     public TimeTableManager() {
-        data = new ArrayList<>();
+        timeplandata = new ArrayList<>();
     }//객체 생성
 
 
@@ -24,7 +24,7 @@ public class TimeTableManager {
         System.out.println(" 3. 시간표 추가 (사용자 정의)");
         System.out.println(" 4. 강의계획서로부터 시간표 추가");
         System.out.println(" 5. 시간표 삭제");
-        System.out.println(" 0. 종료");
+        System.out.println(" 0. 이전");
     }
 
     public void showTimeTableMenu() {
@@ -34,6 +34,7 @@ public class TimeTableManager {
         while(true) {
             timetablemenu();
             int timetablemenu = in.nextInt();
+            if (timetablemenu == 0) return;
             switch (timetablemenu) {
                 case 1 -> showLoadData();
                 case 2 -> showNowTable();
@@ -45,7 +46,16 @@ public class TimeTableManager {
     }
 
     public void showLoadData() {
-        System.out.println(data.toString());
+
+        System.out.println(" 학년 | 이수구분 | 과목번호 | 분반 |           과목명           | 학점 | 담당교수 |       시간1     |       시간2     |           수업장소");
+        //for (TimeTableData t : timeplandata) {
+
+        for(int i=1; i< timeplandata.size();i++){
+            TimeTableData t = timeplandata.get(i);
+            System.out.printf(" %-3s | %-5s | %-7s | %-3s | %-20s | %-3s | %-5s | %-14s | %-14s | %-14s |\n",
+                    t.getGrade(), t.getDivision(), t.getClassnum(), t.getClassnum2(), t.getClassname(), t.getCredit(),
+                    t.getProfessor(), t.getClasstime(), t.getClasstime2(), t.getClassroom());
+        }
     }
 
 
@@ -77,40 +87,38 @@ public class TimeTableManager {
         String classnum = in.next();
         System.out.println("분반을 입력하세요 : ");
         String classnum2 = in.next();
-        for (int i = 0; i < data.size(); i++) {
-            if (data.get(i).getClassnum().equals(classnum)) {
-                if (data.get(i).getClassnum2().equals(classnum2)) pos1 = i; //과목번호로 주소 찾기
+        for (int i = 0; i < timeplandata.size(); i++) {
+            if (timeplandata.get(i).getClassnum().equals(classnum)) {
+                if (timeplandata.get(i).getClassnum2().equals(classnum2)) pos1 = i; //과목번호로 주소 찾기
             }
         }
-        if (data.get(pos1).getClasstime().contains("인강")) {////////////////////////////////////////////생각해보기
+        if (timeplandata.get(pos1).getClasstime().contains("인강")) {////////////////////////////////////////////생각해보기
             System.out.println();
         }
         for (int i = 0; i < 5; i++) {
-            if (data.get(pos1).getClasstime().contains(timeTableDataList1[i])) {
+            if (timeplandata.get(pos1).getClasstime().contains(timeTableDataList1[i])) {
                 weekpos = i;
-                startTime = data.get(pos1).getClasstime().substring(1, 6);
-                endTime = data.get(pos1).getClasstime().substring(7, 12);
+                startTime = timeplandata.get(pos1).getClasstime().substring(1, 6);
+                endTime = timeplandata.get(pos1).getClasstime().substring(7, 12);
 
             }
-            if (data.get(pos1).getClasstime2().contains(timeTableDataList1[i])) {
+            if (timeplandata.get(pos1).getClasstime2().contains(timeTableDataList1[i])) {
                 weekpos2 = i;
-                startTime2 = data.get(pos1).getClasstime2().substring(1, 6);
-                endTime2 = data.get(pos1).getClasstime2().substring(7, 12);
+                startTime2 = timeplandata.get(pos1).getClasstime2().substring(1, 6);
+                endTime2 = timeplandata.get(pos1).getClasstime2().substring(7, 12);
 
             }
         }
         for (int i = 0; i < 31; i++) {
             if (Objects.equals(timeTableDataList2[i][0], startTime)) pos2 = i;
             if (Objects.equals(timeTableDataList2[i][0], endTime)) pos3 = i;
-            if (Objects.equals(timeTableDataList2[i][0], startTime2)) pos4 = i;
-            if (Objects.equals(timeTableDataList2[i][0], endTime2)) pos5 = i;
-        }
+            }
         for (int i = pos2; i < pos3; i++) {
-            timeTableDataList2[i][weekpos + 1] = "과목: " + data.get(pos1).getClassname() + " 담당교수" + data.get(pos1).getProfessor();
+            timeTableDataList2[i][weekpos + 1] = "과목: " + timeplandata.get(pos1).getClassname() + " 담당교수" + timeplandata.get(pos1).getProfessor();
 
         }
         for (int i = pos2; i < pos3; i++) {
-            timeTableDataList2[i][weekpos2 + 1] = "과목: " + data.get(pos1).getClassname() + " 담당교수" + data.get(pos1).getProfessor();
+            timeTableDataList2[i][weekpos2 + 1] = "과목: " + timeplandata.get(pos1).getClassname() + " 담당교수" + timeplandata.get(pos1).getProfessor();
         }
 
     }
@@ -200,7 +208,7 @@ public class TimeTableManager {
 
                 TimeTableData timeTableData = new TimeTableData(grade, division, classnum, classname, classnum2, credit, professor, classtime, classtime2, classroom);
 
-                data.add(timeTableData);
+                timeplandata.add(timeTableData);
             }
             buf.close();
         } catch (FileNotFoundException e) {
@@ -217,7 +225,7 @@ public class TimeTableManager {
 
 
     public void showNowTable() {
-        System.out.println(data.get(1).getClasstime());
+        System.out.println(timeplandata.get(1).getClasstime());
 
         for (String[] strings : timeTableDataList2) {
             System.out.println(Arrays.toString(strings));

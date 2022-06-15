@@ -2,11 +2,11 @@ public class PostData {
     private int postNum;  //게시글번호
     private String postTitle;//게시글제목
     private String   post;//게시글 내용?
-    private User postMakeer;//만든사람이름
+    private String postMakeer;//만든사람이름
     private boolean changeName;//익명 여부
     private int boardnum; //소속된곳
 
-    public PostData(int postNum, String postTitle, String post,User postMakeer, boolean changeName, int boardnum) {
+    public PostData(int postNum, String postTitle, String post,String postMakeer, boolean changeName, int boardnum) {
         super();
         this.postNum = postNum;
         this.postTitle = postTitle;
@@ -26,7 +26,7 @@ public class PostData {
         return post;
     }
 
-    public User getPostMakeer() {
+    public String getPostMakeer() {
         return postMakeer;
     }
     public boolean isChangeName() {
