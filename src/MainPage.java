@@ -3,19 +3,19 @@ import java.util.Scanner;
 public class MainPage {
     private static Scanner in = new Scanner(System.in);
 
-    private static void bfloginmenu() {
+    private static void bfLoginMenu() {
         System.out.println("[[[[ 로그인전 ]]]]");
         System.out.println(" 1. 회원가입");
         System.out.println(" 2. 로그인");
         System.out.println(" 0. 종료");
     }
-    private static void afloginmenu() {
+    private static void afLoginMenu() {
         System.out.println("[[[[ 로그인후 ]]]]");
         System.out.println(" 1. 게시판 목록");
         System.out.println(" 2. 게시판 생성");
         System.out.println(" 3. 게시판 삭제");
         System.out.println(" 4. 시간표");
-        System.out.println(" 0. 종료");
+        System.out.println(" 5. 저장 및 종료");
     }
     public static void main(String[] args) {
 
@@ -29,7 +29,7 @@ public class MainPage {
         FileLoad.readTxt();
         boolean check = true;
         while(check) {
-            bfloginmenu();
+            bfLoginMenu();
             int bfloginmenu = in.nextInt();
             if (bfloginmenu == 0) {
                 System.out.println("프로그램 종료 및 저장");
@@ -45,12 +45,13 @@ public class MainPage {
         }
 
         while(!check) {
-            afloginmenu();
+            afLoginMenu();
             int afloginmenu = in.nextInt();
-            if (afloginmenu == 0) {
-                System.out.println("로그아웃");
-                break;
-            }else if (afloginmenu == 5) return;
+            if (afloginmenu == 5) {
+                System.out.println("종료및 저장");
+                FileLoad.writeTxt();
+                return;
+            }
 
             switch (afloginmenu) {
                 case 1 -> boardManager.goboard();

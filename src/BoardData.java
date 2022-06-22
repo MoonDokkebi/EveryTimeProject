@@ -31,10 +31,6 @@ public class BoardData {
     }
 
 
-    @Override
-    public String toString() {
-        return  String.format(" %-7d | %-15s | %5s | %-1s\n",
-                boardNum, boardTitle, boardMaker, changeName);
-    }
+
 
 }

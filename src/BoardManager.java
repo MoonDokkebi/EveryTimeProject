@@ -7,7 +7,6 @@ import java.util.StringTokenizer;
 public class BoardManager {
     public static ArrayList<BoardData> boardArraylist;
     public static int currentBoard;
-    private static BoardManager boardManager = null;
     Scanner in = new Scanner(System.in);
 
 
@@ -15,10 +14,7 @@ public class BoardManager {
         boardArraylist = new ArrayList<>();
     }
 
-    public static BoardManager getInstance(String s) {
-        if(boardManager == null)boardManager = new BoardManager();
-        return boardManager;
-    }
+
 
     public void boardList() {
 

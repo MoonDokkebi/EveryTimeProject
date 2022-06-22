@@ -1,7 +1,7 @@
 public class TimeTableData {
     private String grade;  //학년
     private String division;//이수구분
-    private String classnum;//교과번호
+    private String classnum;//과목번호
     private String classname;//과목이름
     private String classnum2;//분반
     private String credit;//학점
@@ -10,11 +10,7 @@ public class TimeTableData {
     private String classtime2; //강의시간
     private String classroom;//강의장소
 
-    public void printInfo() {//toString으로 대체함
-        System.out.printf("학년 : %-4s, 이수구분 : %5s 교과번호 : %6s, 과목이름 : %-15s, 분반 : %2s, 학점 : %1s, 담당교수 : %-4s, 강의시간 : %-30s, 강의장소 : %-30s%n",
-                grade,division,classnum,classname,classnum2,credit,professor,classtime,classroom);
 
-    }
 
     public TimeTableData(String grade, String division, String classnum, String classname, String classnum2, String credit, String professor, String classtime, String classtime2, String classroom) {
         super();

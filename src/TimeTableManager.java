@@ -83,7 +83,7 @@ public class TimeTableManager {
         String startTime2 = null;
         String endTime2 = null;
 
-        System.out.println("교과번호를 입력하세요 : ");
+        System.out.println("과목번호를 입력하세요 : ");
         String classnum = in.next();
         System.out.println("분반을 입력하세요 : ");
         String classnum2 = in.next();

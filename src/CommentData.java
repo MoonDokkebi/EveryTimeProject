@@ -30,15 +30,6 @@ public class CommentData {
         return changeName;
     }
 
-    @Override
-    public String toString() {
-        return  "댓글 번호='" + commentNum + '\'' +
-                ", 댓글 내용='" + comment + '\'' +
-                ", 댓글 작성자='" + commetMaker + '\'' +
-                ", 익명여부=" + changeName +
-                ", postnum='" + postnum + '\'' +
-                '}'+'\n';
-    }
 
     public int getPostnum() {
         return postnum;

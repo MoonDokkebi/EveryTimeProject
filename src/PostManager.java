@@ -75,7 +75,7 @@ public class PostManager {
 
     }
 
-    public static void postList(int currentBoard) {
+    private static void postList(int currentBoard) {
 
         boolean checkboard= false;
         for (PostData postDatum : postArrayList) {
@@ -98,7 +98,7 @@ public class PostManager {
             }
         }
     }
-    public static void gopost(int currentBoard){
+    private static void gopost(int currentBoard){
         System.out.println("들어갈 게시글번호를 입력하세요");
         postList(currentBoard);
         System.out.println("이전 : 0");
@@ -116,7 +116,7 @@ public class PostManager {
     }
 
 
-    public static void addPost(int currentBoard, User makeuser) {
+    private static void addPost(int currentBoard, User makeuser) {
         int maxpostnum = 0;
         for (PostData postDatum : postArrayList) {
             if (maxpostnum < postDatum.getPostdNum()) {

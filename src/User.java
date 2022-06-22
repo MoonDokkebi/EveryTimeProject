@@ -1,4 +1,4 @@
-class User {
+public class User {
     private String ussername;  //학년
     private String id;//이수구분
     private String password;//교과번호
@@ -33,9 +33,5 @@ class User {
 
 
 
-    @Override
-    public String toString() {
-        return   ussername;
 
-    }
 }
